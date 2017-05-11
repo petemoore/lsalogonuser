@@ -1,0 +1,60 @@
+2017/05/11 19:37:49 Making system call LsaConnectUntrusted with args: [C04200855
+0]
+2017/05/11 19:37:49   Result: 0
+2017/05/11 19:37:49 Handle: 2164928
+2017/05/11 19:37:49 Making system call LsaLookupAuthenticationPackage with args:
+ [2108C0 604AF0 C042009CF0]
+2017/05/11 19:37:49   Result: 0
+2017/05/11 19:37:49 Auth package: 2
+2017/05/11 19:37:49 Making system call AllocateLocallyUniqueId with args: [C0420
+09D50]
+2017/05/11 19:37:49   Result: 1
+2017/05/11 19:37:49 LUID: win32.LUID{LowPart:0x193cfcf, HighPart:0}
+2017/05/11 19:37:49 0: #102
+2017/05/11 19:37:49 1: #111
+2017/05/11 19:37:49 2: #111
+2017/05/11 19:37:49 3: #98
+2017/05/11 19:37:49 4: #97
+2017/05/11 19:37:49 5: #114
+2017/05/11 19:37:49 6: #120
+2017/05/11 19:37:49 7: #120
+lsa: (*syscall.Handle)(0xc042008550)
+  0000  c0 08 21 00 00 00 00 00                          ..!.....
+origin: &win32.LSAString{Length:0xa, MaximumLength:0xa, Buffer:(*uint8)(0xc04200
+9db2)}
+  0000  0a 00 0a 00 00 00 00 00 b2 9d 00 42 c0 00 00 00  ...........B....
+*origin.Buffer: (*uint8)(0xc042009db2)
+  0000  54                                               T
+packageId: (*uint32)(0xc042009cf0)
+  0000  02 00 00 00                                      ....
+*authInfo: &win32.KerbInteractiveLogon{MessageType:0x2, LogonDomainName:ntr.LSAU
+nicodeString{Length:0x0, MaximumLength:0x2, Buffer:(*uint16)(0xc042009db0)}, Use
+rName:ntr.LSAUnicodeString{Length:0x10, MaximumLength:0x12, Buffer:(*uint16)(0xc
+04207f6c0)}, Password:ntr.LSAUnicodeString{Length:0x1a, MaximumLength:0x1c, Buff
+er:(*uint16)(0xc04207f6e0)}}
+  0000  02 00 00 00 00 00 00 00 00 00 02 00 00 00 00 00  ................
+  0010  b0 9d 00 42 c0 00 00 00 10 00 12 00 00 00 00 00  ...B............
+  0020  c0 f6 07 42 c0 00 00 00 1a 00 1c 00 00 00 00 00  ...B............
+  0030  e0 f6 07 42 c0 00 00 00                          ...B....
+source: &win32.TokenSource{SourceName:[8]uint8{0x66, 0x6f, 0x6f, 0x62, 0x61, 0x7
+2, 0x78, 0x78}, SourceIdentifier:win32.LUID{LowPart:0x193cfcf, HighPart:0}}
+  0000  66 6f 6f 62 61 72 78 78 cf cf 93 01 00 00 00 00  foobarxx........
+profileBuffer: (*uintptr)(0xc042009e78)
+  0000  00 00 00 00 00 00 00 00                          ........
+profileBufferLen: (*uint32)(0xc042009e74)
+  0000  00 00 00 00                                      ....
+luid: &win32.LUID{LowPart:0x0, HighPart:0}
+  0000  00 00 00 00 00 00 00 00                          ........
+token: (*syscall.Handle)(0xc042009e68)
+  0000  00 00 00 00 00 00 00 00                          ........
+qlimits: &win32.QuotaLimits{PagedPoolLimit:0x0, NonPagedPoolLimit:0x0, MinimumWo
+rkingSetSize:0x0, MaximumWorkingSetSize:0x0, PagefileLimit:0x0, TimeLimit:0x0}
+  0000  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  0010  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  0020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+subStatus: (*win32.NtStatus)(0xc042009e70)
+  0000  00 00 00 00                                      ....
+2017/05/11 19:37:49 Making system call LsaLogonUser with args: [2108C0 C042009DC
+0 2 2 C04200B080 38 0 C042009E80 C042009E78 C042009E74 C042009E60 C042009E68 C04
+2083D40 C042009E70]
+2017/05/11 19:37:49   Result: C000000D
