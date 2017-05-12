@@ -1,234 +1,227 @@
 &lsaHandle:
-0000000505FCE9B8:
-  0000  e0 83 14 06 05 00 00 00                          ........
-Handle: c042009e90: (*syscall.Handle)(0xc042009e90)
-  0000  20 06 19 00 00 00 00 00                           .......
+0000001BCB6CEEA8:
+  0000  b0 81 74 cb 1b 00 00 00                          ..t.....
+&lsaHandle:
+c04203fe20:
+  0000  a0 04 23 00 00 00 00 00                          ..#.....
 
 
 &originName:
-0000000505FCF1E8:
-  0000  38 eb fc 05 05 00 00 00                          8.......
-: c042004248: (**win32.LSAString)(0xc042004248)
-  0000  c0 9d 00 42 c0 00 00 00                          ...B....
+0000001BCB6CF618:
+  0000  28 f0 6c cb 1b 00 00 00                          (.l.....
+&originName:
+c042056238:
+  0000  50 fd 03 42 c0 00 00 00                          P..B....
 
 
 originName:
-0000000505FCEB38:
-  0000  0a 00 0a 00 00 00 00 00 f0 ed 14 06 05 00 00 00  ................
-LSAString: c042009dc0: &win32.LSAString{Length:0xa, MaximumLength:0xa, Buffer:(*
-uint8)(0xc042009db2)}
-  0000  0a 00 0a 00 00 00 00 00 b2 9d 00 42 c0 00 00 00  ...........B....
+0000001BCB6CF028:
+  0000  0a 00 0a 00 00 00 00 00 30 fa 74 cb 1b 00 00 00  ........0.t.....
+originName:
+c04203fd50:
+  0000  0a 00 0a 00 00 00 00 00 42 fd 03 42 c0 00 00 00  ........B..B....
 
 
 originName.Buffer:
-0000000505FCEB40:
-  0000  f0 ed 14 06 05 00 00 00                          ........
-uint8: c042009db2: (*uint8)(0xc042009db2)
+0000001BCB74FA30:
+  0000  54                                               T
+originName.Buffer:
+c04203fd42:
   0000  54                                               T
 
 
 &logonType:
-0000000505FCF294:
+0000001BCB6CF6C4:
   0000  02 00 00 00                                      ....
-SecurityLogonType: c042009e98: (*win32.SecurityLogonType)(0xc042009e98)
-  0000  02 00 00 00 00 00 00 00                          ........
+&logonType:
+c04203fe28:
+  0000  02 00 00 00                                      ....
 
 
 &authenticationPackage:
-0000000505FCEB14:
+0000001BCB6CF004:
   0000  02 00 00 00                                      ....
-uint32: c042009ea0: (*uint32)(0xc042009ea0)
+&authenticationPackage:
+c04203fe2c:
   0000  02 00 00 00                                      ....
 
 
 &authenticationInformation:
-0000000505FCEA78:
-  0000  b0 18 15 06 05 00 00 00                          ........
-: c042004250: (**win32.KerbInteractiveLogon)(0xc042004250)
-  0000  80 b0 00 42 c0 00 00 00                          ...B....
+0000001BCB6CEF68:
+  0000  c0 18 75 cb 1b 00 00 00                          ..u.....
+&authenticationInformation:
+c042056240:
+  0000  c0 6e 04 42 c0 00 00 00                          .n.B....
 
 
 authenticationInformation:
-00000005061518B0:
+0000001BCB7518C0:
   0000  02 00 00 00 cd cd cd cd 00 00 00 00 cd cd cd cd  ................
-  0010  e8 18 15 06 05 00 00 00 10 00 10 00 cd cd cd cd  ................
-  0020  e8 18 15 06 05 00 00 00 1a 00 1a 00 cd cd cd cd  ................
-  0030  f8 18 15 06 05 00 00 00                          ........
-KerbInteractiveLogon: c04200b080: &win32.KerbInteractiveLogon{MessageType:0x2, L
-ogonDomainName:ntr.LSAUnicodeString{Length:0x0, MaximumLength:0x2, Buffer:(*uint
-16)(0xc042009db0)}, UserName:ntr.LSAUnicodeString{Length:0x10, MaximumLength:0x1
-2, Buffer:(*uint16)(0xc04207f6c0)}, Password:ntr.LSAUnicodeString{Length:0x1a, M
-aximumLength:0x1c, Buffer:(*uint16)(0xc04207f6e0)}}
-  0000  02 00 00 00 00 00 00 00 00 00 02 00 00 00 00 00  ................
-  0010  b0 9d 00 42 c0 00 00 00 10 00 12 00 00 00 00 00  ...B............
-  0020  c0 f6 07 42 c0 00 00 00 1a 00 1c 00 00 00 00 00  ...B............
-  0030  e0 f6 07 42 c0 00 00 00                          ...B....
-
-
-authenticationInformation.LogonDomainName:
-00000005061518B8:
-  0000  00 00 00 00 cd cd cd cd e8 18 15 06 05 00 00 00  ................
-LSAUnicodeString: c04200b088: &ntr.LSAUnicodeString{Length:0x0, MaximumLength:0x
-2, Buffer:(*uint16)(0xc042009db0)}
-  0000  00 00 02 00 00 00 00 00 b0 9d 00 42 c0 00 00 00  ...........B....
+  0010  f8 18 75 cb 1b 00 00 00 10 00 10 00 cd cd cd cd  ..u.............
+  0020  f8 18 75 cb 1b 00 00 00 1a 00 1a 00 cd cd cd cd  ..u.............
+  0030  08 19 75 cb 1b 00 00 00                          ..u.....
+authenticationInformation:
+c042046ec0:
+  0000  02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  0010  40 fd 03 42 c0 00 00 00 10 00 10 00 00 00 00 00  @..B............
+  0020  c0 33 09 42 c0 00 00 00 1a 00 1a 00 00 00 00 00  .3.B............
+  0030  e0 33 09 42 c0 00 00 00                          .3.B....
 
 
 authenticationInformation.LogonDomainName.Buffer:
-00000005061518E8:
+0000001BCB7518F8:
   0000  73 00                                            s.
-uint16: c042009db0: (*uint16)(0xc042009db0)
+authenticationInformation.LogonDomainName.Buffer:
+c04203fd40:
   0000  00 00                                            ..
 
 
-authenticationInformation.UserName:
-00000005061518C8:
-  0000  10 00 10 00 cd cd cd cd e8 18 15 06 05 00 00 00  ................
-LSAUnicodeString: c04200b098: &ntr.LSAUnicodeString{Length:0x10, MaximumLength:0
-x12, Buffer:(*uint16)(0xc04207f6c0)}
-  0000  10 00 12 00 00 00 00 00 c0 f6 07 42 c0 00 00 00  ...........B....
-
-
 authenticationInformation.UserName.Buffer:
-00000005061518E8:
+0000001BCB7518F8:
   0000  73 00                                            s.
-uint16: c04207f6c0: (*uint16)(0xc04207f6c0)
+authenticationInformation.UserName.Buffer:
+c0420933c0:
   0000  73 00                                            s.
-
-
-authenticationInformation.Password:
-00000005061518D8:
-  0000  1a 00 1a 00 cd cd cd cd f8 18 15 06 05 00 00 00  ................
-LSAUnicodeString: c04200b0a8: &ntr.LSAUnicodeString{Length:0x1a, MaximumLength:0
-x1c, Buffer:(*uint16)(0xc04207f6e0)}
-  0000  1a 00 1c 00 00 00 00 00 e0 f6 07 42 c0 00 00 00  ...........B....
 
 
 authenticationInformation.Password.Buffer:
-00000005061518F8:
+0000001BCB751908:
   0000  71 00                                            q.
-uint16: c04207f6e0: (*uint16)(0xc04207f6e0)
+authenticationInformation.Password.Buffer:
+c0420933e0:
   0000  71 00                                            q.
 
 
 &authenticationInformationLength:
-0000000505FCEA34:
+0000001BCB6CEF24:
   0000  62 00 00 00                                      b...
-uint32: c042009ea4: (*uint32)(0xc042009ea4)
+&authenticationInformationLength:
+c04203fe30:
   0000  38 00 00 00                                      8...
 
 
 &localGroups:
-0000000505FCEC88:
+0000001BCB6CF178:
   0000  00 00 00 00 00 00 00 00                          ........
-: c042004258: (**win32.TokenGroups)(0xc042004258)
+&localGroups:
+c042056248:
   0000  00 00 00 00 00 00 00 00                          ........
 
 
 &sourceContext:
-0000000505FCF4F8:
-  0000  68 eb fc 05 05 00 00 00                          h.......
-: c042004260: (**win32.TokenSource)(0xc042004260)
-  0000  80 9e 00 42 c0 00 00 00                          ...B....
+0000001BCB6CF898:
+  0000  58 f0 6c cb 1b 00 00 00                          X.l.....
+&sourceContext:
+c042056250:
+  0000  10 fe 03 42 c0 00 00 00                          ...B....
 
 
 sourceContext:
-0000000505FCEB68:
-  0000  66 6f 6f 62 61 72 00 00 a7 7c c9 01 00 00 00 00  foobar...|......
-TokenSource: c042009e80: &win32.TokenSource{SourceName:[8]uint8{0x66, 0x6f, 0x6f
-, 0x62, 0x61, 0x72, 0x0, 0x0}, SourceIdentifier:win32.LUID{LowPart:0x1ca0790, Hi
-ghPart:0}}
-  0000  66 6f 6f 62 61 72 00 00 90 07 ca 01 00 00 00 00  foobar..........
+0000001BCB6CF058:
+  0000  66 6f 6f 62 61 72 00 00 24 59 d7 01 00 00 00 00  foobar..$Y......
+sourceContext:
+c04203fe10:
+  0000  66 6f 6f 62 61 72 00 00 ed d6 d6 01 00 00 00 00  foobar..........
 
 
 &profileBuffer:
-0000000505FCF578:
-  0000  98 eb fc 05 05 00 00 00                          ........
-: c042004268: (**uintptr)(0xc042004268)
-  0000  78 9e 00 42 c0 00 00 00                          x..B....
+0000001BCB6CF918:
+  0000  88 f0 6c cb 1b 00 00 00                          ..l.....
+&profileBuffer:
+c042056258:
+  0000  08 fe 03 42 c0 00 00 00                          ...B....
 
 
 profileBuffer:
-0000000505FCEB98:
+0000001BCB6CF088:
   0000  cc cc cc cc cc cc cc cc                          ........
-uintptr: c042009e78: (*uintptr)(0xc042009e78)
+profileBuffer:
+c04203fe08:
   0000  00 00 00 00 00 00 00 00                          ........
 
 
 &profileBufferLength:
-0000000505FCF5F8:
-  0000  b4 eb fc 05 05 00 00 00                          ........
-: c042004270: (**uint32)(0xc042004270)
-  0000  74 9e 00 42 c0 00 00 00                          t..B....
+0000001BCB6CF998:
+  0000  a4 f0 6c cb 1b 00 00 00                          ..l.....
+&profileBufferLength:
+c042056260:
+  0000  04 fe 03 42 c0 00 00 00                          ...B....
 
 
 profileBufferLength:
-0000000505FCEBB4:
+0000001BCB6CF0A4:
   0000  cc cc cc cc                                      ....
-uint32: c042009e74: (*uint32)(0xc042009e74)
+profileBufferLength:
+c04203fe04:
   0000  00 00 00 00                                      ....
 
 
 &logonId:
-0000000505FCF678:
-  0000  d8 eb fc 05 05 00 00 00                          ........
-: c042004278: (**win32.LUID)(0xc042004278)
-  0000  60 9e 00 42 c0 00 00 00                          `..B....
+0000001BCB6CFA18:
+  0000  c8 f0 6c cb 1b 00 00 00                          ..l.....
+&logonId:
+c042056268:
+  0000  f0 fd 03 42 c0 00 00 00                          ...B....
 
 
 logonId:
-0000000505FCEBD8:
+0000001BCB6CF0C8:
   0000  cc cc cc cc cc cc cc cc                          ........
-LUID: c042009e60: &win32.LUID{LowPart:0x0, HighPart:0}
+logonId:
+c04203fdf0:
   0000  00 00 00 00 00 00 00 00                          ........
 
 
 &token:
-0000000505FCF6F8:
-  0000  f8 eb fc 05 05 00 00 00                          ........
-: c042004280: (**syscall.Handle)(0xc042004280)
-  0000  68 9e 00 42 c0 00 00 00                          h..B....
+0000001BCB6CFA98:
+  0000  e8 f0 6c cb 1b 00 00 00                          ..l.....
+&token:
+c042056270:
+  0000  f8 fd 03 42 c0 00 00 00                          ...B....
 
 
 token:
-0000000505FCEBF8:
+0000001BCB6CF0E8:
   0000  cc cc cc cc cc cc cc cc                          ........
-Handle: c042009e68: (*syscall.Handle)(0xc042009e68)
+token:
+c04203fdf8:
   0000  00 00 00 00 00 00 00 00                          ........
 
 
 &quotas:
-0000000505FCF778:
-  0000  18 ec fc 05 05 00 00 00                          ........
-: c042004288: (**win32.QuotaLimits)(0xc042004288)
-  0000  40 3d 08 42 c0 00 00 00                          @=.B....
+0000001BCB6CFB18:
+  0000  08 f1 6c cb 1b 00 00 00                          ..l.....
+&quotas:
+c042056278:
+  0000  60 5b 09 42 c0 00 00 00                          `[.B....
 
 
 quotas:
-0000000505FCEC18:
+0000001BCB6CF108:
   0000  cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc  ................
   0010  cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc  ................
   0020  cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc  ................
-QuotaLimits: c042083d40: &win32.QuotaLimits{PagedPoolLimit:0x0, NonPagedPoolLimi
-t:0x0, MinimumWorkingSetSize:0x0, MaximumWorkingSetSize:0x0, PagefileLimit:0x0,
-TimeLimit:0x0}
+quotas:
+c042095b60:
   0000  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
   0010  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
   0020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
 
 
 &subStatus:
-0000000505FCF7F8:
-  0000  64 ec fc 05 05 00 00 00                          d.......
-: c042004290: (**win32.NtStatus)(0xc042004290)
-  0000  70 9e 00 42 c0 00 00 00                          p..B....
+0000001BCB6CFB98:
+  0000  54 f1 6c cb 1b 00 00 00                          T.l.....
+&subStatus:
+c042056280:
+  0000  00 fe 03 42 c0 00 00 00                          ...B....
 
 
 subStatus:
-0000000505FCEC64:
+0000001BCB6CF154:
   0000  cc cc cc cc                                      ....
-NtStatus: c042009e70: (*win32.NtStatus)(0xc042009e70)
+subStatus:
+c04203fe00:
   0000  00 00 00 00                                      ....
-
 
 
 
@@ -236,7 +229,10 @@ NtStatus: c042009e70: (*win32.NtStatus)(0xc042009e70)
 LsaLogonUser failed: c000006d
 err: 52e
 
-2017/05/12 09:36:01 Making system call LsaLogonUser with args: [190620 C042009DC
-0 2 2 C04200B080 38 0 C042009E80 C042009E78 C042009E74 C042009E60 C042009E68 C04
-2083D40 C042009E70]
-2017/05/12 09:36:01   Result: C000000D
+
+
+
+2017/05/12 11:49:16 Making system call LsaLogonUser with args: [2304A0 C04203FD5
+0 2 2 C042046EC0 38 0 C04203FE10 C04203FE08 C04203FE04 C04203FDF0 C04203FDF8 C04
+2095B60 C04203FE00]
+2017/05/12 11:49:16   Result: C000000D
