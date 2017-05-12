@@ -40,6 +40,25 @@ func main() {
 		Password:        ntr.LSAUnicodeStringMustCompile("qwertQWERT123"),
 	}
 
+	domainNameCopy := (*(*[1<<31 - 1]byte)(unsafe.Pointer(authenticationInformation.LogonDomainName.Buffer)))[:authenticationInformation.LogonDomainName.MaximumLength]
+	userNameCopy := (*(*[1<<31 - 1]byte)(unsafe.Pointer(authenticationInformation.UserName.Buffer)))[:authenticationInformation.UserName.MaximumLength]
+	passwordCopy := (*(*[1<<31 - 1]byte)(unsafe.Pointer(authenticationInformation.Password.Buffer)))[:authenticationInformation.Password.MaximumLength]
+
+	authenticationInformationLength := uint32(unsafe.Sizeof(win32.KerbInteractiveLogon{})) + uint32(authenticationInformation.LogonDomainName.MaximumLength+authenticationInformation.UserName.MaximumLength+authenticationInformation.Password.MaximumLength)
+
+	authInfoBuffer := make([]byte, authenticationInformationLength)
+	authenticationInformation.LogonDomainName.Buffer = (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&authInfoBuffer[0])) + unsafe.Sizeof(win32.KerbInteractiveLogon{})))
+	authenticationInformation.UserName.Buffer = (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&authenticationInformation.LogonDomainName.Buffer)) + uintptr(authenticationInformation.LogonDomainName.MaximumLength)))
+	authenticationInformation.Password.Buffer = (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&authenticationInformation.UserName.Buffer)) + uintptr(authenticationInformation.UserName.MaximumLength)))
+
+	authInfoCopy := (*(*[1<<31 - 1]byte)(unsafe.Pointer(&authenticationInformation)))[:unsafe.Sizeof(authenticationInformation)]
+	copy(authInfoCopy, domainNameCopy)
+	copy(authInfoCopy, userNameCopy)
+	copy(authInfoCopy, passwordCopy)
+	copy(authInfoBuffer, authInfoCopy)
+
+	authenticationInformation = *(*win32.KerbInteractiveLogon)(unsafe.Pointer(&authInfoBuffer[0]))
+
 	originName := win32.LSAStringMustCompile("TestAppFoo")
 
 	sourceName := [8]byte{}
@@ -71,7 +90,7 @@ func main() {
 		2, // Interactive
 		authPackage,
 		&authenticationInformation,
-		uint32(unsafe.Sizeof(authenticationInformation)),
+		authenticationInformationLength,
 		nil,
 		&ts,
 		&profileBuffer,
@@ -88,7 +107,7 @@ func LsaLogonUser(
 	originName *win32.LSAString, // PLSA_STRING
 	logonType win32.SecurityLogonType, // SECURITY_LOGON_TYPE
 	authenticationPackage uint32, // ULONG
-	authenticationInformation *win32.KerbInteractiveLogon, // PVOID -- this is a hack for now - we currently only support this one method so explicitly require KerbInteractiveLogon
+	authenticationInformation *win32.KerbInteractiveLogon, // PVOID
 	authenticationInformationLength uint32, // ULONG
 	localGroups *win32.TokenGroups, // PTOKEN_GROUPS
 	sourceContext *win32.TokenSource, // PTOKEN_SOURCE
