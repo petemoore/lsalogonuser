@@ -150,7 +150,7 @@ func LsaLogonUser(
 func PrintRawMemoryPointerType(name string, p interface{}) {
 	typ := reflect.Indirect(reflect.ValueOf(p)).Type()
 	address := reflect.Indirect(reflect.ValueOf(p)).Addr().Pointer()
-	fmt.Println(name)
+	fmt.Printf("%v:\n", name)
 	fmt.Printf("%x:\n", address)
 	buf := ""
 	x := 0
