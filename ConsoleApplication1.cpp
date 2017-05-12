@@ -31,6 +31,8 @@ struct hexdump {
 		std::string buf;
 		buf.reserve(17); // premature optimization
 
+		printf("%p:\n", (void *)pc);
+
 		int i;
 		for (i = 0; i < v.len; ++i, ++pc) {
 			if ((i % 16) == 0) {
@@ -56,7 +58,7 @@ struct hexdump {
 
 int main(int argc, char * argv[])
 {
-	
+
 	// connect to the LSA
 	HANDLE lsa;
 	LsaConnectUntrusted(&lsa);
@@ -99,25 +101,42 @@ int main(int argc, char * argv[])
 	HANDLE token;
 	QUOTA_LIMITS qlimits;
 	NTSTATUS subStatus;
+	PTOKEN_GROUPS localGroups = 0;
 
-	std::cout << "lsa:\n" << hexdump(lsa);
-	std::cout << "origin:\n" << hexdump(origin);
-	std::cout << "*origin.Buffer:\n" << hexdump(*origin.Buffer);
-	std::cout << "Interactive:\n" << hexdump(Interactive);
-	std::cout << "packageId:\n" << hexdump(packageId);
-	std::cout << "*authInfo:\n" << hexdump(*authInfo);
-	std::cout << "authInfoSize:\n" << hexdump(authInfoSize);
-	std::cout << "source:\n" << hexdump(source);
+	std::cout << "&lsaHandle:\n" << hexdump(lsa);
+	std::cout << "&originName:\n" << hexdump(&origin);
+	std::cout << "originName:\n" << hexdump(origin);
+	std::cout << "originName.Buffer:\n" << hexdump(origin.Buffer);
+	std::cout << "&logonType:\n" << hexdump(Interactive);
+	std::cout << "&authenticationPackage:\n" << hexdump(packageId);
+	std::cout << "&authenticationInformation:\n" << hexdump(authInfo);
+	std::cout << "authenticationInformation:\n" << hexdump(*authInfo);
+	std::cout << "authenticationInformation.LogonDomainName:\n" << hexdump((*authInfo).LogonDomainName);
+	std::cout << "authenticationInformation.LogonDomainName.Buffer:\n" << hexdump(*((*authInfo).LogonDomainName.Buffer));
+	std::cout << "authenticationInformation.UserName:\n" << hexdump((*authInfo).UserName);
+	std::cout << "authenticationInformation.UserName.Buffer:\n" << hexdump(*((*authInfo).UserName.Buffer));
+	std::cout << "authenticationInformation.Password:\n" << hexdump((*authInfo).Password);
+	std::cout << "authenticationInformation.Password.Buffer:\n" << hexdump(*((*authInfo).Password.Buffer));
+	std::cout << "&authenticationInformationLength:\n" << hexdump(authInfoSize);
+	std::cout << "&localGroups:\n" << hexdump(localGroups);
+	std::cout << "&sourceContext:\n" << hexdump(&source);
+	std::cout << "sourceContext:\n" << hexdump(source);
+	std::cout << "&profileBuffer:\n" << hexdump(&profileBuffer);
 	std::cout << "profileBuffer:\n" << hexdump(profileBuffer);
-	std::cout << "profileBufLen:\n" << hexdump(profileBufLen);
-	std::cout << "luid:\n" << hexdump(luid);
+	std::cout << "&profileBufferLength:\n" << hexdump(&profileBufLen);
+	std::cout << "profileBufferLength:\n" << hexdump(profileBufLen);
+	std::cout << "&logonId:\n" << hexdump(&luid);
+	std::cout << "logonId:\n" << hexdump(luid);
+	std::cout << "&token:\n" << hexdump(&token);
 	std::cout << "token:\n" << hexdump(token);
-	std::cout << "qlimits:\n" << hexdump(qlimits);
+	std::cout << "&quotas:\n" << hexdump(&qlimits);
+	std::cout << "quotas:\n" << hexdump(qlimits);
+	std::cout << "&subStatus:\n" << hexdump(&subStatus);
 	std::cout << "subStatus:\n" << hexdump(subStatus);
 
 
 	NTSTATUS status = LsaLogonUser(lsa, &origin, Interactive, packageId,
-		authInfo, authInfoSize, 0, &source, &profileBuffer, &profileBufLen,
+		authInfo, authInfoSize, localGroups, &source, &profileBuffer, &profileBufLen,
 		&luid, &token, &qlimits, &subStatus);
 	if (status != ERROR_SUCCESS)
 	{
@@ -141,4 +160,3 @@ void InitUnicodeString(UNICODE_STRING& str, const wchar_t* value, BYTE* buffer, 
 	memcpy(str.Buffer, value, size);
 	offset += size;
 }
-

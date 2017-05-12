@@ -43,7 +43,7 @@ func main() {
 	originName := win32.LSAStringMustCompile("TestAppFoo")
 
 	sourceName := [8]byte{}
-	for i, c := range []byte("foobarxx") {
+	for i, c := range []byte("foobar") {
 		sourceName[i] = c
 	}
 	for i, c := range sourceName {
@@ -54,6 +54,7 @@ func main() {
 	token := syscall.Handle(0)
 	quotas := win32.QuotaLimits{}
 	subStatus := win32.NtStatus(0)
+	// lg := win32.TokenGroups{}
 
 	profileBufferLength := uint32(0)
 
@@ -64,20 +65,7 @@ func main() {
 		SourceIdentifier: l,
 	}
 
-	PrintRawMemoryPointerType("lsa", &h)
-	PrintRawMemoryPointerType("origin", &originName)
-	PrintRawMemoryPointerType("*origin.Buffer", originName.Buffer)
-	PrintRawMemoryPointerType("packageId", &authPackage)
-	PrintRawMemoryPointerType("*authInfo", &authenticationInformation)
-	PrintRawMemoryPointerType("source", &ts)
-	PrintRawMemoryPointerType("profileBuffer", &profileBuffer)
-	PrintRawMemoryPointerType("profileBufferLen", &profileBufferLength)
-	PrintRawMemoryPointerType("luid", &logonId)
-	PrintRawMemoryPointerType("token", &token)
-	PrintRawMemoryPointerType("qlimits", &quotas)
-	PrintRawMemoryPointerType("subStatus", &subStatus)
-
-	win32.LsaLogonUser(
+	LsaLogonUser(
 		h,
 		&originName,
 		2, // Interactive
@@ -95,9 +83,77 @@ func main() {
 	)
 }
 
-func PrintRawMemoryPointerType(name string, p interface{}) {
-	fmt.Printf("%v: %#v\n", name, p)
+func LsaLogonUser(
+	lsaHandle syscall.Handle, // HANDLE
+	originName *win32.LSAString, // PLSA_STRING
+	logonType win32.SecurityLogonType, // SECURITY_LOGON_TYPE
+	authenticationPackage uint32, // ULONG
+	authenticationInformation *win32.KerbInteractiveLogon, // PVOID -- this is a hack for now - we currently only support this one method so explicitly require KerbInteractiveLogon
+	authenticationInformationLength uint32, // ULONG
+	localGroups *win32.TokenGroups, // PTOKEN_GROUPS
+	sourceContext *win32.TokenSource, // PTOKEN_SOURCE
+	profileBuffer *uintptr, // PVOID*
+	profileBufferLength *uint32, // PULONG
+	logonId *win32.LUID, // PLUID
+	token *syscall.Handle, // PHANDLE
+	quotas *win32.QuotaLimits, // PQUOTA_LIMITS
+	subStatus *win32.NtStatus, // PNTSTATUS
+) (err error) {
+
+	PrintRawMemoryPointerType(&lsaHandle)
+	PrintRawMemoryPointerType(&originName)
+	PrintRawMemoryPointerType(originName)
+	PrintRawMemoryPointerType(originName.Buffer)
+	PrintRawMemoryPointerType(&logonType)
+	PrintRawMemoryPointerType(&authenticationPackage)
+	PrintRawMemoryPointerType(&authenticationInformation)
+	PrintRawMemoryPointerType(authenticationInformation)
+	PrintRawMemoryPointerType(&authenticationInformation.LogonDomainName)
+	PrintRawMemoryPointerType(authenticationInformation.LogonDomainName.Buffer)
+	PrintRawMemoryPointerType(&authenticationInformation.UserName)
+	PrintRawMemoryPointerType(authenticationInformation.UserName.Buffer)
+	PrintRawMemoryPointerType(&authenticationInformation.Password)
+	PrintRawMemoryPointerType(authenticationInformation.Password.Buffer)
+	PrintRawMemoryPointerType(&authenticationInformationLength)
+	PrintRawMemoryPointerType(&localGroups)
+	// PrintRawMemoryPointerType(localGroups)
+	PrintRawMemoryPointerType(&sourceContext)
+	PrintRawMemoryPointerType(sourceContext)
+	PrintRawMemoryPointerType(&profileBuffer)
+	PrintRawMemoryPointerType(profileBuffer)
+	PrintRawMemoryPointerType(&profileBufferLength)
+	PrintRawMemoryPointerType(profileBufferLength)
+	PrintRawMemoryPointerType(&logonId)
+	PrintRawMemoryPointerType(logonId)
+	PrintRawMemoryPointerType(&token)
+	PrintRawMemoryPointerType(token)
+	PrintRawMemoryPointerType(&quotas)
+	PrintRawMemoryPointerType(quotas)
+	PrintRawMemoryPointerType(&subStatus)
+	PrintRawMemoryPointerType(subStatus)
+
+	return win32.LsaLogonUser(
+		lsaHandle,
+		originName,
+		logonType,
+		authenticationPackage,
+		authenticationInformation,
+		authenticationInformationLength,
+		localGroups,
+		sourceContext,
+		profileBuffer,
+		profileBufferLength,
+		logonId,
+		token,
+		quotas,
+		subStatus,
+	)
+}
+
+func PrintRawMemoryPointerType(p interface{}) {
 	typ := reflect.Indirect(reflect.ValueOf(p)).Type()
+	address := reflect.Indirect(reflect.ValueOf(p)).Addr().Pointer()
+	fmt.Printf("%v: %x: %#v\n", typ.Name(), address, p)
 	buf := ""
 	x := 0
 	for ; x < int(typ.Size()); x++ {
