@@ -106,16 +106,13 @@ int main(int argc, char * argv[])
 	std::cout << "&lsaHandle:\n" << hexdump(lsa);
 	std::cout << "&originName:\n" << hexdump(&origin);
 	std::cout << "originName:\n" << hexdump(origin);
-	std::cout << "originName.Buffer:\n" << hexdump(origin.Buffer);
+	std::cout << "originName.Buffer:\n" << hexdump(*(origin.Buffer));
 	std::cout << "&logonType:\n" << hexdump(Interactive);
 	std::cout << "&authenticationPackage:\n" << hexdump(packageId);
 	std::cout << "&authenticationInformation:\n" << hexdump(authInfo);
 	std::cout << "authenticationInformation:\n" << hexdump(*authInfo);
-	std::cout << "authenticationInformation.LogonDomainName:\n" << hexdump((*authInfo).LogonDomainName);
 	std::cout << "authenticationInformation.LogonDomainName.Buffer:\n" << hexdump(*((*authInfo).LogonDomainName.Buffer));
-	std::cout << "authenticationInformation.UserName:\n" << hexdump((*authInfo).UserName);
 	std::cout << "authenticationInformation.UserName.Buffer:\n" << hexdump(*((*authInfo).UserName.Buffer));
-	std::cout << "authenticationInformation.Password:\n" << hexdump((*authInfo).Password);
 	std::cout << "authenticationInformation.Password.Buffer:\n" << hexdump(*((*authInfo).Password.Buffer));
 	std::cout << "&authenticationInformationLength:\n" << hexdump(authInfoSize);
 	std::cout << "&localGroups:\n" << hexdump(localGroups);

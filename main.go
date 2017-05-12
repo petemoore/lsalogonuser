@@ -100,37 +100,34 @@ func LsaLogonUser(
 	subStatus *win32.NtStatus, // PNTSTATUS
 ) (err error) {
 
-	PrintRawMemoryPointerType(&lsaHandle)
-	PrintRawMemoryPointerType(&originName)
-	PrintRawMemoryPointerType(originName)
-	PrintRawMemoryPointerType(originName.Buffer)
-	PrintRawMemoryPointerType(&logonType)
-	PrintRawMemoryPointerType(&authenticationPackage)
-	PrintRawMemoryPointerType(&authenticationInformation)
-	PrintRawMemoryPointerType(authenticationInformation)
-	PrintRawMemoryPointerType(&authenticationInformation.LogonDomainName)
-	PrintRawMemoryPointerType(authenticationInformation.LogonDomainName.Buffer)
-	PrintRawMemoryPointerType(&authenticationInformation.UserName)
-	PrintRawMemoryPointerType(authenticationInformation.UserName.Buffer)
-	PrintRawMemoryPointerType(&authenticationInformation.Password)
-	PrintRawMemoryPointerType(authenticationInformation.Password.Buffer)
-	PrintRawMemoryPointerType(&authenticationInformationLength)
-	PrintRawMemoryPointerType(&localGroups)
+	PrintRawMemoryPointerType("&lsaHandle", &lsaHandle)
+	PrintRawMemoryPointerType("&originName", &originName)
+	PrintRawMemoryPointerType("originName", originName)
+	PrintRawMemoryPointerType("originName.Buffer", originName.Buffer)
+	PrintRawMemoryPointerType("&logonType", &logonType)
+	PrintRawMemoryPointerType("&authenticationPackage", &authenticationPackage)
+	PrintRawMemoryPointerType("&authenticationInformation", &authenticationInformation)
+	PrintRawMemoryPointerType("authenticationInformation", authenticationInformation)
+	PrintRawMemoryPointerType("authenticationInformation.LogonDomainName.Buffer", authenticationInformation.LogonDomainName.Buffer)
+	PrintRawMemoryPointerType("authenticationInformation.UserName.Buffer", authenticationInformation.UserName.Buffer)
+	PrintRawMemoryPointerType("authenticationInformation.Password.Buffer", authenticationInformation.Password.Buffer)
+	PrintRawMemoryPointerType("&authenticationInformationLength", &authenticationInformationLength)
+	PrintRawMemoryPointerType("&localGroups", &localGroups)
 	// PrintRawMemoryPointerType(localGroups)
-	PrintRawMemoryPointerType(&sourceContext)
-	PrintRawMemoryPointerType(sourceContext)
-	PrintRawMemoryPointerType(&profileBuffer)
-	PrintRawMemoryPointerType(profileBuffer)
-	PrintRawMemoryPointerType(&profileBufferLength)
-	PrintRawMemoryPointerType(profileBufferLength)
-	PrintRawMemoryPointerType(&logonId)
-	PrintRawMemoryPointerType(logonId)
-	PrintRawMemoryPointerType(&token)
-	PrintRawMemoryPointerType(token)
-	PrintRawMemoryPointerType(&quotas)
-	PrintRawMemoryPointerType(quotas)
-	PrintRawMemoryPointerType(&subStatus)
-	PrintRawMemoryPointerType(subStatus)
+	PrintRawMemoryPointerType("&sourceContext", &sourceContext)
+	PrintRawMemoryPointerType("sourceContext", sourceContext)
+	PrintRawMemoryPointerType("&profileBuffer", &profileBuffer)
+	PrintRawMemoryPointerType("profileBuffer", profileBuffer)
+	PrintRawMemoryPointerType("&profileBufferLength", &profileBufferLength)
+	PrintRawMemoryPointerType("profileBufferLength", profileBufferLength)
+	PrintRawMemoryPointerType("&logonId", &logonId)
+	PrintRawMemoryPointerType("logonId", logonId)
+	PrintRawMemoryPointerType("&token", &token)
+	PrintRawMemoryPointerType("token", token)
+	PrintRawMemoryPointerType("&quotas", &quotas)
+	PrintRawMemoryPointerType("quotas", quotas)
+	PrintRawMemoryPointerType("&subStatus", &subStatus)
+	PrintRawMemoryPointerType("subStatus", subStatus)
 
 	return win32.LsaLogonUser(
 		lsaHandle,
@@ -150,10 +147,11 @@ func LsaLogonUser(
 	)
 }
 
-func PrintRawMemoryPointerType(p interface{}) {
+func PrintRawMemoryPointerType(name string, p interface{}) {
 	typ := reflect.Indirect(reflect.ValueOf(p)).Type()
 	address := reflect.Indirect(reflect.ValueOf(p)).Addr().Pointer()
-	fmt.Printf("%v: %x: %#v\n", typ.Name(), address, p)
+	fmt.Println(name)
+	fmt.Printf("%x:\n", address)
 	buf := ""
 	x := 0
 	for ; x < int(typ.Size()); x++ {
@@ -177,4 +175,5 @@ func PrintRawMemoryPointerType(p interface{}) {
 		fmt.Print(strings.Repeat(" ", 3*(16-x%16)))
 	}
 	fmt.Printf("  %v\n", buf)
+	// fmt.Printf("\n%#v\n", p)
 }
