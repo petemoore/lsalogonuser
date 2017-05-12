@@ -40,24 +40,44 @@ func main() {
 		Password:        ntr.LSAUnicodeStringMustCompile("qwertQWERT123"),
 	}
 
+	PrintRawMemoryPointerType("ORIGINAL authenticationInformation", &authenticationInformation)
+
 	domainNameCopy := (*(*[1<<31 - 1]byte)(unsafe.Pointer(authenticationInformation.LogonDomainName.Buffer)))[:authenticationInformation.LogonDomainName.MaximumLength]
 	userNameCopy := (*(*[1<<31 - 1]byte)(unsafe.Pointer(authenticationInformation.UserName.Buffer)))[:authenticationInformation.UserName.MaximumLength]
 	passwordCopy := (*(*[1<<31 - 1]byte)(unsafe.Pointer(authenticationInformation.Password.Buffer)))[:authenticationInformation.Password.MaximumLength]
 
+	// PrintRawMemoryPointerType("domainNameCopy", &domainNameCopy[0])
+	PrintRawMemoryPointerType("userNameCopy", &userNameCopy[0])
+	PrintRawMemoryPointerType("passwordCopy", &passwordCopy[0])
+
 	authenticationInformationLength := uint32(unsafe.Sizeof(win32.KerbInteractiveLogon{})) + uint32(authenticationInformation.LogonDomainName.MaximumLength+authenticationInformation.UserName.MaximumLength+authenticationInformation.Password.MaximumLength)
 
 	authInfoBuffer := make([]byte, authenticationInformationLength)
+
+	PrintRawMemoryPointerType("EMPTY authInfoBuffer", &authInfoBuffer[0])
+
 	authenticationInformation.LogonDomainName.Buffer = (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&authInfoBuffer[0])) + unsafe.Sizeof(win32.KerbInteractiveLogon{})))
-	authenticationInformation.UserName.Buffer = (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&authenticationInformation.LogonDomainName.Buffer)) + uintptr(authenticationInformation.LogonDomainName.MaximumLength)))
-	authenticationInformation.Password.Buffer = (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(&authenticationInformation.UserName.Buffer)) + uintptr(authenticationInformation.UserName.MaximumLength)))
+	authenticationInformation.UserName.Buffer = (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(authenticationInformation.LogonDomainName.Buffer)) + uintptr(authenticationInformation.LogonDomainName.MaximumLength)))
+	authenticationInformation.Password.Buffer = (*uint16)(unsafe.Pointer(uintptr(unsafe.Pointer(authenticationInformation.UserName.Buffer)) + uintptr(authenticationInformation.UserName.MaximumLength)))
+
+	PrintRawMemoryPointerType("UPDATED authenticationInformation", &authenticationInformation)
 
 	authInfoCopy := (*(*[1<<31 - 1]byte)(unsafe.Pointer(&authenticationInformation)))[:unsafe.Sizeof(authenticationInformation)]
-	copy(authInfoCopy, domainNameCopy)
-	copy(authInfoCopy, userNameCopy)
-	copy(authInfoCopy, passwordCopy)
+
+	PrintRawMemoryPointerType("authInfoCopy", &authInfoCopy[0])
+	authInfoCopy = append(authInfoCopy, domainNameCopy...)
+	PrintRawMemoryPointerType("authInfoCopy with domainName added", &authInfoCopy[0])
+	authInfoCopy = append(authInfoCopy, userNameCopy...)
+	PrintRawMemoryPointerType("authInfoCopy with UserName added", &authInfoCopy[0])
+	authInfoCopy = append(authInfoCopy, passwordCopy...)
+	PrintRawMemoryPointerType("authInfoCopy with password added", &authInfoCopy[0])
 	copy(authInfoBuffer, authInfoCopy)
 
-	authenticationInformation = *(*win32.KerbInteractiveLogon)(unsafe.Pointer(&authInfoBuffer[0]))
+	PrintRawMemoryPointerType("authInfoBuffer with copied from authInfoCopy", &authInfoBuffer[0])
+
+	ai := (*win32.KerbInteractiveLogon)(unsafe.Pointer(&authInfoBuffer[0]))
+
+	PrintRawMemoryPointerType("FINAL authenticationInformation", ai)
 
 	originName := win32.LSAStringMustCompile("TestAppFoo")
 
@@ -89,7 +109,7 @@ func main() {
 		&originName,
 		2, // Interactive
 		authPackage,
-		&authenticationInformation,
+		ai,
 		authenticationInformationLength,
 		nil,
 		&ts,
