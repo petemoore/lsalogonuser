@@ -125,12 +125,16 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("Profile buffer: %#v\n", profileBuffer)
-	fmt.Printf("Profile buffer length: %#v\n", profileBufferLength)
 	fmt.Printf("Logon ID: %#v\n", logonId)
 	fmt.Printf("Token: %#v\n", token)
 	fmt.Printf("Quotas: %#v\n", quotas)
 	fmt.Printf("Substatus: %#v\n", subStatus)
+
+	fmt.Printf("Profile buffer pointer: %#v\n", profileBuffer)
+	fmt.Printf("Profile buffer length: %#v\n", profileBufferLength)
+	pb := (*win32.Msv1_0_InteractiveProfile)(unsafe.Pointer(profileBuffer))
+	fmt.Printf("Profile buffer data: %#v\n", pb)
+
 }
 
 func LsaLogonUser(
