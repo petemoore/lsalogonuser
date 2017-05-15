@@ -104,7 +104,7 @@ func main() {
 		SourceIdentifier: l,
 	}
 
-	LsaLogonUser(
+	err = LsaLogonUser(
 		h,
 		&originName,
 		2, // Interactive
@@ -120,6 +120,17 @@ func main() {
 		&quotas,
 		&subStatus,
 	)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Profile buffer: %#v\n", profileBuffer)
+	fmt.Printf("Profile buffer length: %#v\n", profileBufferLength)
+	fmt.Printf("Logon ID: %#v\n", logonId)
+	fmt.Printf("Token: %#v\n", token)
+	fmt.Printf("Quotas: %#v\n", quotas)
+	fmt.Printf("Substatus: %#v\n", subStatus)
 }
 
 func LsaLogonUser(
