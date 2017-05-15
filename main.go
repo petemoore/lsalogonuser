@@ -168,7 +168,7 @@ func LsaLogonUser(
 	PrintRawMemoryPointerType("&subStatus", &subStatus)
 	PrintRawMemoryPointerType("subStatus", subStatus)
 
-	ai := (*byte)(unsafe.Pointer(&authenticationInformation))
+	ai := (*byte)(unsafe.Pointer(authenticationInformation))
 
 	return win32.LsaLogonUser(
 		lsaHandle,
